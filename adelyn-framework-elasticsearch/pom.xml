@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.adelyn.framework</groupId>
+        <artifactId>adelyn-framework-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>adelyn-framework-elasticsearch</artifactId>
+
+    <dependencies>
+        <!-- 核心依赖 -->
+
+        <!-- 次要依赖 -->
+        <!-- elasticsearch -->
+        <dependency>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+        </dependency>
+        <!-- javax.json包从JavaEE过渡到JakartaEE后使用jakarta.json，导致导致 ClassNotFoundException -->
+        <!-- https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/8.3/installation.html -->
+        <dependency>
+            <groupId>jakarta.json</groupId>
+            <artifactId>jakarta.json-api</artifactId>
+        </dependency>
+        <!-- spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- 模块依赖 -->
+
+    </dependencies>
+</project>
