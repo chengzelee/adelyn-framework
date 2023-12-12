@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <groupId>cn.adelyn.framework</groupId>
+    <artifactId>adelyn-framework-bom</artifactId>
+    <version>${adelyn-framework.vision}</version>
+
+    <properties>
+        <adelyn-framework.vision>1.0.0-SNAPSHOT</adelyn-framework.vision>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-cache</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-core</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-crypto</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-database</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-elasticsearch</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-feign</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-nacos</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-oss</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.adelyn.framework</groupId>
+                <artifactId>adelyn-framework-web</artifactId>
+                <version>${adelyn-framework.vision}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

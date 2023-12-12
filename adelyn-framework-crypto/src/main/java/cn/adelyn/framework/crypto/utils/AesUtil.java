@@ -1,12 +1,12 @@
 package cn.adelyn.framework.crypto.utils;
 
-import cn.hutool.core.codec.Base64;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.AesBytesEncryptor;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * @author chengze
@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class AesUtil implements InitializingBean {
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         password = passwordConfig;
         salt = saltConfig;
     }
@@ -58,10 +58,10 @@ public class AesUtil implements InitializingBean {
     }
 
     public static String aesEncryptStr(String str){
-        return Base64.encode(aesEncrypt(str.getBytes(StandardCharsets.UTF_8)));
+        return new String(Base64.getEncoder().encode(aesEncrypt(str.getBytes(StandardCharsets.UTF_8))));
     }
 
     public static String aesDecryptStr(String str){
-        return new String(aesDecrypt(Base64.decode(str)), StandardCharsets.UTF_8);
+        return new String(aesDecrypt(Base64.getDecoder().decode(str)), StandardCharsets.UTF_8);
     }
 }

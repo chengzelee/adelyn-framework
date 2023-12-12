@@ -7,10 +7,10 @@
 
     <groupId>cn.adelyn.framework</groupId>
     <artifactId>adelyn-framework-dependencies</artifactId>
-    <version>${revision}</version>
+    <version>${adelyn-framework.vision}</version>
 
     <properties>
-        <revision>1.0.0-SNAPSHOT</revision>
+        <adelyn-framework.vision>1.0.0-SNAPSHOT</adelyn-framework.vision>
 
         <!-- 核心依赖 -->
         <spring-boot.version>3.1.5</spring-boot.version>
@@ -167,51 +167,13 @@
                 <version>${spring-boot.version}</version>
             </dependency>
 
-            <!-- 模块依赖 -->
+            <!-- adelyn-framework -->
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-cache</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-crypto</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-database</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-elasticsearch</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-feign</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-nacos</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-oss</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-web</artifactId>
-                <version>${revision}</version>
+                <artifactId>adelyn-framework-bom</artifactId>
+                <version>${adelyn-framework.vision}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

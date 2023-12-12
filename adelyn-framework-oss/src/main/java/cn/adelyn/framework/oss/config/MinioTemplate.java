@@ -1,7 +1,6 @@
 package cn.adelyn.framework.oss.config;
 
 import io.minio.*;
-import io.minio.errors.*;
 import io.minio.http.Method;
 import io.minio.messages.NotificationRecords;
 import org.springframework.beans.factory.InitializingBean;
