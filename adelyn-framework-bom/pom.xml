@@ -7,10 +7,10 @@
 
     <groupId>cn.adelyn.framework</groupId>
     <artifactId>adelyn-framework-bom</artifactId>
-    <version>${adelyn-framework.vision}</version>
+    <version>${revision}</version>
 
     <properties>
-        <adelyn-framework.vision>1.0.0-SNAPSHOT</adelyn-framework.vision>
+        <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
     <dependencyManagement>
@@ -18,47 +18,47 @@
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-cache</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-core</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-crypto</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-database</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-elasticsearch</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-feign</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-nacos</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-oss</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-web</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

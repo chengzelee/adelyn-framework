@@ -7,10 +7,10 @@
 
     <groupId>cn.adelyn.framework</groupId>
     <artifactId>adelyn-framework-dependencies</artifactId>
-    <version>${adelyn-framework.vision}</version>
+    <version>${revision}</version>
 
     <properties>
-        <adelyn-framework.vision>1.0.0-SNAPSHOT</adelyn-framework.vision>
+        <revision>1.0.0-SNAPSHOT</revision>
 
         <!-- 核心依赖 -->
         <spring-boot.version>3.1.5</spring-boot.version>
@@ -171,7 +171,7 @@
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
                 <artifactId>adelyn-framework-bom</artifactId>
-                <version>${adelyn-framework.vision}</version>
+                <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
