@@ -28,6 +28,7 @@
 
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
+        <maven-flatten.version>1.5.0</maven-flatten.version>
 
         <java.version>21</java.version>
         <project.encoding>UTF-8</project.encoding>
@@ -48,55 +49,6 @@
     </dependencyManagement>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot.version}</version>
-                    <executions>
-                        <!-- 打jar包的时候把依赖包也打进去，一般有启动类的时候需要（可独立运行），如果没有他，只能作为依赖包用-->
-                        <!-- execution: 执行 -->
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <outputDirectory>${project.basedir}/docker</outputDirectory>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>flatten-maven-plugin</artifactId>
-                    <version>1.5.0</version>
-                    <configuration>
-                        <!-- 是否更新pom文件，此处还有更高级的用法 -->
-                        <updatePomFile>true</updatePomFile>
-                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>flatten</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>flatten</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>flatten.clean</id>
-                            <phase>clean</phase>
-                            <goals>
-                                <goal>clean</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -115,68 +67,32 @@
                     <encoding>${project.encoding}</encoding>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${maven-flatten.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <phase>clean</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-
-        <!-- 配置资源文件 -->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <!-- filtering：决定是否将resources目录下的文件中的tokens（即通过@val@标识的变量）进行参数替换。
-                这里的参数主要有两个来源，一个是来自于pom文件中的properties属性，一个是来源于外部的.properties文件
-                https://www.jianshu.com/p/4410613bb36f
-                -->
-                <filtering>true</filtering>
-                <!-- 除配置文件外，需要打包的资源，maven默认不打包这些 -->
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 
-    <profiles>
-        <!--使用 mvn clean install -P<profile id> 进行激活prod环境的配置，否则激活默认环境-->
-        <!-- eg. mvn package -P dev -D skipTests-->
-        <profile>
-            <id>dev-local</id>
-            <properties>
-                <!-- 环境标识，需要与配置文件的名称相对应 -->
-                <profiles.active>dev-local</profiles.active>
-                <!-- 相同 namespace 不同 group 有服务隔离 https://github.com/alibaba/nacos/issues/3193-->
-                <nacos.namespace>8cdb7e4c-c7b0-4984-90b7-4011be7cb60f</nacos.namespace>
-                <nacos.group>ADELYN_DEV</nacos.group>
-                <nacos.server-addr>192.168.23.132:8848</nacos.server-addr>
-                <nacos.username>nacos</nacos.username>
-                <nacos.password>nacos</nacos.password>
-            </properties>
-            <activation>
-                <!-- 没有显式指定环境时, maven 会默认取 activeByDefault 为 true 的 profile -->
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <!-- 环境标识，需要与配置文件的名称相对应 -->
-                <profiles.active>dev</profiles.active>
-                <!-- 相同 namespace 不同 group 有服务隔离 https://github.com/alibaba/nacos/issues/3193-->
-                <nacos.namespace>8cdb7e4c-c7b0-4984-90b7-4011be7cb60f</nacos.namespace>
-                <nacos.group>ADELYN_DEV</nacos.group>
-                <nacos.server-addr>192.168.23.132:8848</nacos.server-addr>
-                <nacos.username>nacos</nacos.username>
-                <nacos.password>nacos</nacos.password>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <profiles.active>prod</profiles.active>
-                <nacos.namespace>c6fe7b8b-0dbb-4c9e-a774-4dc5e5b7e467</nacos.namespace>
-                <nacos.group>ADELYN_PROD</nacos.group>
-                <nacos.server-addr>192.168.88.128:8848</nacos.server-addr>
-                <nacos.username>nacos</nacos.username>
-                <nacos.password>nacos</nacos.password>
-            </properties>
-        </profile>
-    </profiles>
 </project>
