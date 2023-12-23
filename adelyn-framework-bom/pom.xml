@@ -11,54 +11,169 @@
 
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
+
+        <!-- 核心依赖 -->
+        <spring-boot.version>3.1.5</spring-boot.version>
+        <spring-cloud.version>2022.0.4</spring-cloud.version>
+        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
+        <!--分离出这三个spring cloud alibaba dependencies里的东西，是为了能够在 spring cloud alibaba 不更新的时候，及时更新-->
+        <!-- 但最好还是按官网的毕业版本来 https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E       -->
+        <seata.version>1.7.0</seata.version>
+        <nacos.version>2.2.1</nacos.version>
+        <rocketmq.version>5.0.5</rocketmq.version>
+
+        <!-- 次要依赖 -->
+        <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
+        <mybatis-plus-join.version>1.4.5</mybatis-plus-join.version>
+        <minio.version>8.4.3</minio.version>
+        <lombok.version>1.18.30</lombok.version>
+        <okhttp.version>4.8.1</okhttp.version>
+        <jsoup.version>1.13.1</jsoup.version>
+        <elasticsearch.version>8.3.3</elasticsearch.version>
+        <jakarta.json-api.version>2.1.1</jakarta.json-api.version>
+        <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
+        <bouncycastle.version>1.76</bouncycastle.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- 核心依赖 -->
+            <!-- springboot-->
             <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-cache</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring cloud-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud alibaba -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- nacos -->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
+            <!-- seata -->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba</groupId>
+                        <artifactId>druid</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- rocketmq -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client-java</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+
+            <!-- 次要依赖 -->
+
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <!-- mybatis-plus-join -->
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join</artifactId>
+                <version>${mybatis-plus-join.version}</version>
+            </dependency>
+            <!-- minio -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+            <!-- okhttp -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!-- jsoup 防xss注入 -->
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+            <!-- elasticsearch -->
+            <dependency>
+                <groupId>co.elastic.clients</groupId>
+                <artifactId>elasticsearch-java</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <!-- javax.json包从JavaEE过渡到JakartaEE后使用jakarta.json，导致导致 ClassNotFoundException -->
+            <!-- https://www.elastic.co/guide/en/elasticsearch/client/java-api-client/8.3/installation.html -->
+            <dependency>
+                <groupId>jakarta.json</groupId>
+                <artifactId>jakarta.json-api</artifactId>
+                <version>${jakarta.json-api.version}</version>
+            </dependency>
+            <!-- transmittable-thread-local -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+            <!-- bouncycastle -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-core</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
+            <!-- 单元测试-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- adelyn-framework -->
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-crypto</artifactId>
+                <artifactId>adelyn-framework-dependencies</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-database</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-elasticsearch</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-feign</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-nacos</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-oss</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-web</artifactId>
-                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

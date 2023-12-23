@@ -39,8 +39,8 @@
         <dependencies>
             <dependency>
                 <groupId>cn.adelyn.framework</groupId>
-                <artifactId>adelyn-framework-dependencies</artifactId>
-                <version>${revision}</version>
+                <artifactId>adelyn-framework-bom</artifactId>
+                <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
