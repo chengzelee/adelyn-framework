@@ -21,7 +21,7 @@
         <module>adelyn-framework-elasticsearch</module>
         <module>adelyn-framework-feign</module>
         <module>adelyn-framework-nacos</module>
-        <module>adelyn-framework-oss</module>
+        <module>adelyn-framework-minio</module>
         <module>adelyn-framework-rocketmq</module>
         <module>adelyn-framework-web</module>
     </modules>
@@ -50,23 +50,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.encoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven-resources-plugin.version}</version>
-                <configuration>
-                    <encoding>${project.encoding}</encoding>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>

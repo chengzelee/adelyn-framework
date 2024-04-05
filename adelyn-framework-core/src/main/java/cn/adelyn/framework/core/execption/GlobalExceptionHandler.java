@@ -1,7 +1,7 @@
 package cn.adelyn.framework.core.execption;
 
 import cn.adelyn.framework.core.response.ResponseEnum;
-import cn.adelyn.framework.core.response.ServerResponseEntity;
+import cn.adelyn.framework.core.response.ServerResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +25,10 @@ import java.util.Set;
  */
 @Slf4j
 @RestControllerAdvice
-public class GlobalExecptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler({ MethodArgumentNotValidException.class, BindException.class })
-    public ResponseEntity<ServerResponseEntity<List<String>>> methodArgumentNotValidExceptionHandler(Exception e) {
+    public ResponseEntity<ServerResponse<List<String>>> methodArgumentNotValidExceptionHandler(Exception e) {
         log.error("methodArgumentNotValidExceptionHandler", e);
         List<FieldError> fieldErrors = null;
         if (e instanceof MethodArgumentNotValidException) {
@@ -43,11 +43,11 @@ public class GlobalExecptionHandler {
             defaultMessages.add(fieldError.getField() + ":" + fieldError.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ServerResponseEntity.fail(ResponseEnum.METHOD_ARGUMENT_NOT_VALID, defaultMessages));
+                .body(ServerResponse.fail(ResponseEnum.METHOD_ARGUMENT_NOT_VALID, defaultMessages));
     }
 
     @ExceptionHandler({ ConstraintViolationException.class })
-    public ResponseEntity<ServerResponseEntity<List<String>>> methodArgumentNotValidExceptionHandler(
+    public ResponseEntity<ServerResponse<List<String>>> methodArgumentNotValidExceptionHandler(
             ConstraintViolationException e) {
         log.error("methodArgumentNotValidExceptionHandler", e);
         Set<ConstraintViolation<?>> fieldErrors = e.getConstraintViolations();
@@ -56,36 +56,36 @@ public class GlobalExecptionHandler {
             defaultMessages.add(fieldError.getMessage());
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ServerResponseEntity.fail(ResponseEnum.METHOD_ARGUMENT_NOT_VALID, defaultMessages));
+                .body(ServerResponse.fail(ResponseEnum.METHOD_ARGUMENT_NOT_VALID, defaultMessages));
     }
 
     @ExceptionHandler({ HttpMessageNotReadableException.class })
-    public ResponseEntity<ServerResponseEntity<List<FieldError>>> methodArgumentNotValidExceptionHandler(
+    public ResponseEntity<ServerResponse<List<FieldError>>> methodArgumentNotValidExceptionHandler(
             HttpMessageNotReadableException e) {
         log.error("methodArgumentNotValidExceptionHandler", e);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ServerResponseEntity.fail(ResponseEnum.HTTP_MESSAGE_NOT_READABLE));
+                .body(ServerResponse.fail(ResponseEnum.HTTP_MESSAGE_NOT_READABLE));
     }
 
     @ExceptionHandler(AdelynException.class)
-    public ResponseEntity<ServerResponseEntity<Object>> adelynExceptionHandler(AdelynException e) {
+    public ResponseEntity<ServerResponse<Object>> adelynExceptionHandler(AdelynException e) {
         log.error("adelynExceptionHandler", e);
         ResponseEnum responseEnum = e.getResponseEnum();
         // 失败返回失败消息 + 状态码
         if (responseEnum != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(ServerResponseEntity.fail(responseEnum, e.getObject()));
+            return ResponseEntity.status(HttpStatus.OK).body(ServerResponse.fail(responseEnum, e.getObject()));
         }
         // 失败返回消息 状态码固定为直接显示消息的状态码
-        return ResponseEntity.status(HttpStatus.OK).body(ServerResponseEntity.showFailMsg(e.getMessage()));
+        return ResponseEntity.status(HttpStatus.OK).body(ServerResponse.fail(e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ServerResponseEntity<Object>> exceptionHandler(Exception e) {
+    public ResponseEntity<ServerResponse<Object>> exceptionHandler(Exception e) {
         log.error("exceptionHandler", e);
 /*        log.info("RootContext.getXID(): " + RootContext.getXID());
         if (StrUtil.isNotBlank(RootContext.getXID())) {
             GlobalTransactionContext.reload(RootContext.getXID()).rollback();
         }*/
-        return ResponseEntity.status(HttpStatus.OK).body(ServerResponseEntity.fail(ResponseEnum.EXCEPTION));
+        return ResponseEntity.status(HttpStatus.OK).body(ServerResponse.fail(ResponseEnum.EXCEPTION));
     }
 }

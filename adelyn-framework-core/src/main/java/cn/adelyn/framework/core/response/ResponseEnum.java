@@ -13,9 +13,9 @@ public enum ResponseEnum {
 	OK("000", "ok"),
 
 	/**
-	 * 用于直接显示提示用户的错误，内容由输入内容决定
+	 * 失败
 	 */
-	SHOW_FAIL("001", ""),
+	FAIL("001", ""),
 
 	/**
 	 * 方法参数没有校验，内容由输入内容决定
@@ -46,71 +46,6 @@ public enum ResponseEnum {
 	 * 未授权
 	 */
 	UNAUTHORIZED("8004-1", "未授权"),
-
-	/**
-	 * 账号认证失败
-	 */
-	ACCOUNT_VERIFY_FAIL("8004-2","用户名或密码不正确"),
-
-	/**
-	 * 用户已禁用
-	 */
-	ACCOUNT_DISABLED("8004-3","用户已禁用"),
-
-	/**
-	 * token超时
-	 */
-	TOKEN_TIMEOUT("8002-1","token超时"),
-
-	/**
-	 * token解析失败
-	 */
-	TOKEN_DECRYPT_FAIL("8002-2","token格式不符"),
-
-	/**
-	 * 全文检索失败
-	 */
-	SEARCH_MATCH_FAIL("8004-1","检索失败"),
-
-	/**
-	 * 获取博客详情失败
-	 */
-	SEARCH_GETDETAIL_FAIL("8004-2","获取博客详情失败"),
-
-	/**
-	 * 生成uploadUrl失败
-	 */
-	FILE_UPLOAD_URL_GEN_FAIL("8005-1","生成文件上传url失败"),
-
-	/**
-	 * 生成downloadUrl失败
-	 */
-	FILE_DOWNLOAD_URL_GEN_FAIL("8005-2","生成文件下载url失败"),
-
-	/**
-	 * 删除文件失败
-	 */
-	FILE_OSS_DELETE_FAIL("8005-3","删除oss对象失败"),
-
-	/**
-	 * 添加博客失败
-	 */
-	BLOG_INSERT_FAIL("8041-1","添加博客失败"),
-
-	/**
-	 * 更新博客失败
-	 */
-	BLOG_UPDATE_FAIL("8041-2","更新博客失败"),
-
-	/**
-	 * 删除博客失败
-	 */
-	BLOG_DELETE_FAIL("8041-3","删除博客失败"),
-
-	/**
-	 * 博客不存在
-	 */
-	BLOG_NOT_FOUND("8041-4","博客不存在")
 	;
 
     private final String code;

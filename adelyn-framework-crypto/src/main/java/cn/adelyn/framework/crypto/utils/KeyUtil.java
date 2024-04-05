@@ -9,7 +9,11 @@ import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECParameterSpec;
 
+import java.io.IOException;
 import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
 public class KeyUtil {
 
@@ -36,12 +40,24 @@ public class KeyUtil {
         return keyPairGenerator.generateKeyPair();
     }
 
-    public static PublicKey getPublicKey(SubjectPublicKeyInfo subjectPublicKeyInfo) throws Exception{
+    public static PublicKey getPublicKey(SubjectPublicKeyInfo subjectPublicKeyInfo) throws IOException {
         BouncyCastleProvider bouncyCastleProvider = ((BouncyCastleProvider)Security.getProvider(BC));
         bouncyCastleProvider.addKeyInfoConverter(PKCSObjectIdentifiers.rsaEncryption,
                 new org.bouncycastle.jcajce.provider.asymmetric.rsa.KeyFactorySpi());
         bouncyCastleProvider.addKeyInfoConverter(X9ObjectIdentifiers.id_ecPublicKey,
                 new org.bouncycastle.jcajce.provider.asymmetric.ec.KeyFactorySpi.EC());
         return BouncyCastleProvider.getPublicKey(subjectPublicKeyInfo);
+    }
+
+    public static PrivateKey getPrivateKey(byte[] keyData) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchProviderException {
+        KeyFactory keyFactory = KeyFactory.getInstance(AlgoConstant.RSA, BC);
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyData);
+        return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+    }
+
+    public static PublicKey getPublicKey(byte[] keyData) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchProviderException {
+        KeyFactory keyFactory = KeyFactory.getInstance(AlgoConstant.RSA, BC);
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyData);
+        return keyFactory.generatePublic(x509EncodedKeySpec);
     }
 }

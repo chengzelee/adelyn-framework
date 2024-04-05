@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>adelyn-framework-oss</artifactId>
+    <artifactId>adelyn-framework-minio</artifactId>
 
     <dependencies>
         <!-- 核心依赖 -->

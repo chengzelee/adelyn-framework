@@ -7,9 +7,7 @@ import org.bouncycastle.crypto.util.PrivateKeyFactory;
 import org.bouncycastle.jcajce.provider.asymmetric.util.ECUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
+import java.security.*;
 
 public class SignUtil {
 
@@ -20,28 +18,28 @@ public class SignUtil {
 
     public static final String BC = BouncyCastleProvider.PROVIDER_NAME;
 
-    public static byte[] RSASign(byte[] inData, PrivateKey privateKey) throws Exception{
+    public static byte[] RSASign(byte[] inData, PrivateKey privateKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException {
         Signature signer = Signature.getInstance("SHA256WITHRSA",BC);
         signer.initSign(privateKey);
         signer.update(inData);
         return signer.sign();
     }
 
-    public static boolean RSAVerifySign(byte[] inData, byte[] signature, PublicKey publicKey) throws Exception{
+    public static boolean RSAVerifySign(byte[] inData, byte[] signature, PublicKey publicKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException {
         Signature signer = Signature.getInstance("SHA256WITHRSA",BC);
         signer.initVerify(publicKey);
         signer.update(inData);
         return signer.verify(signature);
     }
 
-    public static byte[] ECDSASign(byte[] inData,PrivateKey privateKey) throws Exception{
+    public static byte[] ECDSASign(byte[] inData,PrivateKey privateKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException {
         Signature signer = Signature.getInstance("SHA256WITHECDSA",BC);
         signer.initSign(privateKey);
         signer.update(inData);
         return signer.sign();
     }
 
-    public static boolean ECDSAVerifySign(byte[] inData, byte[] signature, PublicKey publicKey) throws Exception{
+    public static boolean ECDSAVerifySign(byte[] inData, byte[] signature, PublicKey publicKey) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, SignatureException {
         Signature signer = Signature.getInstance("SHA256WITHECDSA",BC);
         signer.initVerify(publicKey);
         signer.update(inData);
@@ -56,7 +54,7 @@ public class SignUtil {
         return  sm2Signer.generateSignature();
     }
 
-    public static boolean SM2VerifySign(byte[] inData, byte[] signature, PublicKey publicKey) throws Exception{
+    public static boolean SM2VerifySign(byte[] inData, byte[] signature, PublicKey publicKey) throws InvalidKeyException {
         AsymmetricKeyParameter ecParam =  ECUtil.generatePublicKeyParameter(publicKey);
         SM2Signer sm2Signer = new SM2Signer();
         sm2Signer.init(false,new ParametersWithID(ecParam,SM2_ID));

@@ -18,7 +18,7 @@ import java.util.List;
  * @desc json对象转换工具
  */
 @Slf4j
-public class Json {
+public class JsonUtil {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 

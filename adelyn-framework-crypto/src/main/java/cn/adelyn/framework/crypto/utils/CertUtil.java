@@ -18,6 +18,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -132,7 +133,7 @@ public class CertUtil {
         return Certificate.getInstance(new DERSequence(v));
     }
 
-    public static boolean verifyCSR(PKCS10CertificationRequest csr) throws Exception{
+    public static boolean verifyCSR(PKCS10CertificationRequest csr) throws IOException, InvalidKeyException, NoSuchAlgorithmException, SignatureException, NoSuchProviderException {
         byte[] signature = csr.getSignature();
         if(csr.getSignatureAlgorithm().getAlgorithm().equals(GMObjectIdentifiers.sm2sign_with_sm3)) {
             return  SignUtil.SM2VerifySign(

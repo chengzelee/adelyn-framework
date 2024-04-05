@@ -1,14 +1,18 @@
-package cn.adelyn.framework.database.pojo.model;
+package cn.adelyn.framework.database.pojo.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class BaseModel extends Model {
+public class BasePO extends Model {
+
+    @TableId
+    private Long id;
 
     /**
      * 创建时间
@@ -40,5 +44,13 @@ public class BaseModel extends Model {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

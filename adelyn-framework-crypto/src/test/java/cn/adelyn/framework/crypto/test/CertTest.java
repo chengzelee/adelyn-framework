@@ -21,7 +21,7 @@ import java.security.Security;
 import java.util.Date;
 
 @Slf4j
-public class CertTester {
+public class CertTest {
 
     @BeforeAll
     public static void init() {
