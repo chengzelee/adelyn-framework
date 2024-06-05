@@ -2,6 +2,7 @@ package cn.adelyn.framework.core.context;
 
 
 import cn.adelyn.framework.core.pojo.bo.UserInfoBO;
+import com.alibaba.ttl.TransmittableThreadLocal;
 
 /**
  * @author chengze
@@ -11,7 +12,7 @@ import cn.adelyn.framework.core.pojo.bo.UserInfoBO;
 public class UserInfoContext {
 
 	/** The request holder. */
-	private static final ThreadLocal<UserInfoBO> USER_INFO_IN_TOKEN_HOLDER = new ThreadLocal<>();
+	private static final TransmittableThreadLocal<UserInfoBO> USER_INFO_IN_TOKEN_HOLDER = new TransmittableThreadLocal<>();
 
 	public static UserInfoBO get() {
 		return USER_INFO_IN_TOKEN_HOLDER.get();

@@ -1,34 +1,39 @@
 package cn.adelyn.framework.core.util;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 
 import java.util.concurrent.*;
 
-@Slf4j
 public class ConcurrentLimitUtil {
     private final Semaphore semaphore;
     private final ExecutorService executorService;
 
     public ConcurrentLimitUtil(int maxConcurrency) {
         semaphore = new Semaphore(maxConcurrency);
-        executorService = new ThreadPoolExecutor(maxConcurrency, maxConcurrency, 20,
-            TimeUnit.SECONDS, new ArrayBlockingQueue<>(maxConcurrency), new CustomizableThreadFactory("limitPool"), new ThreadPoolExecutor.AbortPolicy());;
-
+        executorService = TtlExecutors.getTtlExecutorService(Executors.newVirtualThreadPerTaskExecutor());
     }
 
     public void processTask(Runnable task) {
         try {
+            // 提交任务前获取锁，降低锁竞争时间
             semaphore.acquire(); // 获取信号量
-            executorService.execute(() -> {
-                try {
-                    task.run(); // 执行任务
-                } finally {
-                    semaphore.release(); // 释放信号量
-                }
-            });
+            executorService.execute(task);
         } catch (InterruptedException e) {
-            log.error("限流异常", e);
+            throw new RuntimeException(e);
+        } finally {
+            semaphore.release(); // 释放信号量
+        }
+    }
+
+    public <T> Future<T> processTask(Callable<T> task) {
+        try {
+            // 提交任务前获取锁，降低锁竞争时间
+            semaphore.acquire(); // 获取信号量
+            return executorService.submit(task);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            semaphore.release(); // 释放信号量
         }
     }
 
@@ -41,24 +46,16 @@ public class ConcurrentLimitUtil {
      *      而线程池里面的 核心线程 是一直会存在的，keepAliveTime 是核心线程之外线程的失效时间，如果没有任务则会阻塞，所以线程池里面的用户线程一直会存在.
      *      而shutdown方法的作用就是让这些核心线程终止，也就是让 jvm 能退出
      */
-    public void awaitAllTasksTerminate() {
-        shutdownExecutor();
+    public void awaitAllTasksTerminate(long checkIntervalMillis) {
+        executorService.shutdown();
 
         try {
-            while (!isTerminated()) {
-                log.info("still have task unterminated, main thread await 1000 millis");
-                Thread.sleep(1000);
+            while (!executorService.isTerminated()) {
+                Thread.sleep(checkIntervalMillis);
             }
         } catch (InterruptedException e) {
-            log.error("await for all tasks terminate err", e);
+            throw new RuntimeException(e);
         }
     }
 
-    private void shutdownExecutor() {
-        executorService.shutdown();
-    }
-
-    private boolean isTerminated() {
-        return executorService.isTerminated();
-    }
 }
