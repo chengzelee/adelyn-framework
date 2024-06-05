@@ -48,9 +48,6 @@ public class ServerResponse<T> implements Serializable {
 	}
 
 	public void setData(T data) {
-		if (ifFail()) {
-			throw new AdelynException("rpc service fail");
-		}
 		this.data = data;
 	}
 
