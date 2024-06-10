@@ -8,9 +8,9 @@ package cn.adelyn.framework.core.response;
 public enum ResponseEnum {
 
 	/**
-	 * ok
+	 * success
 	 */
-	SUCCESS("000", "success"),
+	SUCCESS("200", "success"),
 
 	/**
 	 * 失败
@@ -40,12 +40,12 @@ public enum ResponseEnum {
 	/**
 	 * 未登录
 	 */
-	UNLOGIN("8004-0", "未登录"),
+	UNLOGIN("006", "未登录"),
 
 	/**
 	 * 未授权
 	 */
-	UNAUTHORIZED("8004-1", "未授权"),
+	UNAUTHORIZED("007", "未授权"),
 	;
 
     private final String code;
