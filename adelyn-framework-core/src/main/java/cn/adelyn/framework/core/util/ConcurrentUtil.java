@@ -16,6 +16,6 @@ public class ConcurrentUtil {
     }
 
     public static void processTask(Runnable task) {
-        executorService.submit(task);
+        executorService.execute(task);
     }
 }
