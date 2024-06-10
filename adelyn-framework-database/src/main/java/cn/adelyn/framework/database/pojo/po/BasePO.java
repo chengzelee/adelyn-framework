@@ -2,17 +2,30 @@ package cn.adelyn.framework.database.pojo.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+/**
+ * @Author chengzelee
+ * @Date 2022/10/4 21:28
+ * @Desc 基础数据库对象，主键由上层自由选择
+ */
 public class BasePO extends Model {
 
-    @TableId
-    private Long id;
+    /**
+     * 创建人
+     */
+    @TableField(value = "create_user", fill = FieldFill.INSERT)
+    private Long createUser;
+
+    /**
+     * 更新人
+     */
+    @TableField(value = "update_user",fill = FieldFill.INSERT_UPDATE)
+    private Long updateUser;
 
     /**
      * 创建时间
@@ -46,11 +59,5 @@ public class BasePO extends Model {
         this.updateTime = updateTime;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

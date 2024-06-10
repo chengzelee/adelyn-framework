@@ -16,12 +16,7 @@ public class UserInfoBO {
 	private String tenantId;
 
 	/**
-	 * 全局唯一的id
+	 * userId
 	 */
 	private Long userId;
-
-	/**
-	 * 角色类型
-	 */
-	private Integer userType;
 }

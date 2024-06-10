@@ -1,7 +1,5 @@
 package cn.adelyn.framework.core.response;
 
-import cn.adelyn.framework.core.execption.AdelynException;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -52,25 +50,26 @@ public class ServerResponse<T> implements Serializable {
 	}
 
 	public boolean ifSuccess() {
-		return Objects.equals(ResponseEnum.OK.getCode(), this.code);
+		return Objects.equals(ResponseEnum.SUCCESS.getCode(), this.code);
 	}
 
 	public boolean ifFail() {
-		return !Objects.equals(ResponseEnum.OK.getCode(), this.code);
+		return !Objects.equals(ResponseEnum.SUCCESS.getCode(), this.code);
 	}
 
 
 	public static <T> ServerResponse<T> success(T data) {
 		ServerResponse<T> serverResponse = new ServerResponse<>();
 		serverResponse.setData(data);
-		serverResponse.setCode(ResponseEnum.OK.getCode());
+		serverResponse.setMsg(ResponseEnum.SUCCESS.getMsg());
+		serverResponse.setCode(ResponseEnum.SUCCESS.getCode());
 		return serverResponse;
 	}
 
 	public static <T> ServerResponse<T> success() {
 		ServerResponse<T> serverResponse = new ServerResponse<>();
-		serverResponse.setCode(ResponseEnum.OK.getCode());
-		serverResponse.setMsg(ResponseEnum.OK.getMsg());
+		serverResponse.setCode(ResponseEnum.SUCCESS.getCode());
+		serverResponse.setMsg(ResponseEnum.SUCCESS.getMsg());
 		return serverResponse;
 	}
 

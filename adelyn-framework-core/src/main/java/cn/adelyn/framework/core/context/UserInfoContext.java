@@ -36,9 +36,5 @@ public class UserInfoContext {
 		return get().getUserId();
 	}
 
-	public static Integer getUserType() {
-		return get().getUserType();
-	}
-
 
 }

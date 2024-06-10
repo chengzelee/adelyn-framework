@@ -10,12 +10,12 @@ public enum ResponseEnum {
 	/**
 	 * ok
 	 */
-	OK("000", "ok"),
+	SUCCESS("000", "success"),
 
 	/**
 	 * 失败
 	 */
-	FAIL("001", ""),
+	FAIL("001", "fail"),
 
 	/**
 	 * 方法参数没有校验，内容由输入内容决定
