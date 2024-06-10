@@ -45,7 +45,7 @@ public enum ResponseEnum {
 	/**
 	 * 未授权
 	 */
-	UNAUTHORIZED("007", "未授权"),
+	UNAUTHORIZED("403", "未授权"),
 	;
 
     private final String code;
