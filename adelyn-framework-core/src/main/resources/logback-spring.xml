@@ -15,7 +15,7 @@
             <!-- %-5  若字符长度小于5，则右边用空格填充  -->
             <!-- %.15 若字符长度超过15，截去多余字符    -->
             <!-- %10.10 若字符长度小于10，则左边用空格填充；若字符长度超过10，截去多余字符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} %cyan([%10.10thread]) %green(%-5level) %highlight(%-40.40logger{40} %-3line:) %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} %X{traceId} %cyan([%10.10thread]) %green(%-5level) %highlight(%-40.40logger{40} %-3line:) %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -38,7 +38,7 @@
             <!-- %-5  若字符长度小于5，则右边用空格填充  -->
             <!-- %.15 若字符长度超过15，截去多余字符    -->
             <!-- %10.10 若字符长度小于10，则左边用空格填充；若字符长度超过10，截去多余字符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%10.10thread] %-5level %-40.40logger{40} %-3line: %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %X{traceId} [%10.10thread] %-5level %-40.40logger{40} %-3line: %msg%n</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
