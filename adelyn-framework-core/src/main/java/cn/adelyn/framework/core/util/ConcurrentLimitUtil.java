@@ -1,6 +1,7 @@
 package cn.adelyn.framework.core.util;
 
-import com.alibaba.ttl.threadpool.TtlExecutors;
+
+import cn.adelyn.framework.core.trace.MDCVirtualThreadExecutorService;
 
 import java.util.concurrent.*;
 
@@ -10,7 +11,7 @@ public class ConcurrentLimitUtil {
 
     public ConcurrentLimitUtil(int maxConcurrency) {
         semaphore = new Semaphore(maxConcurrency);
-        executorService = TtlExecutors.getTtlExecutorService(Executors.newVirtualThreadPerTaskExecutor());
+        executorService = new MDCVirtualThreadExecutorService(Executors.newVirtualThreadPerTaskExecutor());
     }
 
     public void processTask(Runnable task) {

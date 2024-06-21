@@ -2,7 +2,8 @@ package cn.adelyn.framework.core.context;
 
 
 import cn.adelyn.framework.core.pojo.bo.UserInfoBO;
-import com.alibaba.ttl.TransmittableThreadLocal;
+
+import java.util.Objects;
 
 /**
  * @author chengze
@@ -12,7 +13,7 @@ import com.alibaba.ttl.TransmittableThreadLocal;
 public class UserInfoContext {
 
 	/** The request holder. */
-	private static final TransmittableThreadLocal<UserInfoBO> USER_INFO_IN_TOKEN_HOLDER = new TransmittableThreadLocal<>();
+	private static final InheritableThreadLocal<UserInfoBO> USER_INFO_IN_TOKEN_HOLDER = new InheritableThreadLocal<>();
 
 	public static UserInfoBO get() {
 		return USER_INFO_IN_TOKEN_HOLDER.get();
@@ -23,17 +24,15 @@ public class UserInfoContext {
 	}
 
 	public static void clean() {
-		if (USER_INFO_IN_TOKEN_HOLDER.get() != null) {
-			USER_INFO_IN_TOKEN_HOLDER.remove();
-		}
+		USER_INFO_IN_TOKEN_HOLDER.remove();
 	}
 
 	public static String getTenantId() {
-		return get().getTenantId();
+		return Objects.isNull(get()) ? null : get().getTenantId();
 	}
 
 	public static Long getUserId() {
-		return get().getUserId();
+		return Objects.isNull(get()) ? null : get().getUserId();
 	}
 
 

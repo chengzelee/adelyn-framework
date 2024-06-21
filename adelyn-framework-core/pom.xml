@@ -23,11 +23,6 @@
         </dependency>
 
         <!-- 次要依赖 -->
-        <!-- ttl -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>transmittable-thread-local</artifactId>
-        </dependency>
         <!-- 单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

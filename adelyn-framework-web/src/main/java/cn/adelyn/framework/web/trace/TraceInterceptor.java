@@ -12,7 +12,7 @@ public class TraceInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String traceIdFromHeader = request.getHeader( request.getHeader("X-traceId"));
+        String traceIdFromHeader = request.getHeader("X-traceId");
         String traceId = StringUtils.hasLength(traceIdFromHeader) ? traceIdFromHeader : getRandomLongString();
         MDC.put("traceId", traceId);
         response.addHeader("X-traceId",traceId);

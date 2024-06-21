@@ -6,24 +6,31 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Component
 public class FillMetaInfoHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        Date currentDate = new Date();
         Long currentUserId = UserInfoContext.getUserId();
+        if (Objects.nonNull(currentUserId)) {
+            this.setFieldValByName("createUser",  currentUserId, metaObject);
+            this.setFieldValByName("updateUser", currentUserId, metaObject);
+        }
 
-        this.setFieldValByName("createUser",  currentUserId, metaObject);
-        this.setFieldValByName("updateUser", currentUserId, metaObject);
+        Date currentDate = new Date();
         this.setFieldValByName("createTime", currentDate, metaObject);
         this.setFieldValByName("updateTime", currentDate, metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("updateUser", UserInfoContext.getUserId(), metaObject);
+        Long currentUserId = UserInfoContext.getUserId();
+        if (Objects.nonNull(currentUserId)) {
+            this.setFieldValByName("updateUser", currentUserId, metaObject);
+        }
+
         this.setFieldValByName("updateTime", new Date(), metaObject);
     }
 }

@@ -15,7 +15,7 @@ public enum ResponseEnum {
 	/**
 	 * 失败
 	 */
-	FAIL("001", "fail"),
+	FAIL("500", "fail"),
 
 	/**
 	 * 方法参数没有校验，内容由输入内容决定
@@ -28,24 +28,19 @@ public enum ResponseEnum {
 	HTTP_MESSAGE_NOT_READABLE("003", "请求参数格式有误"),
 
 	/**
-	 * 输出
-	 */
-	PRINT_MSG_TO_RESPONSE_FAIL("004","输出信息到response失败"),
-
-	/**
-	 * 服务器出了点小差
-	 */
-	EXCEPTION("005", "服务器出了点小差"),
-
-	/**
 	 * 未登录
 	 */
-	UNLOGIN("006", "未登录"),
+	UNLOGIN("401", "未登录"),
 
 	/**
 	 * 未授权
 	 */
 	UNAUTHORIZED("403", "未授权"),
+
+	/**
+	 * 流控
+	 */
+	TOO_MANY_REQUEST("429", "too many request"),
 	;
 
     private final String code;

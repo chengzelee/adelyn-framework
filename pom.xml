@@ -24,6 +24,7 @@
         <module>adelyn-framework-minio</module>
         <module>adelyn-framework-rocketmq</module>
         <module>adelyn-framework-web</module>
+        <module>adelyn-framework-flowControl</module>
     </modules>
 
     <properties>

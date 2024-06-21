@@ -22,6 +22,10 @@ public class AdelynException extends RuntimeException{
         this.data = data;
     }
 
+    public AdelynException(Throwable cause) {
+        super(cause);
+    }
+
     public AdelynException(String msg, Throwable cause) {
         super(msg, cause);
     }

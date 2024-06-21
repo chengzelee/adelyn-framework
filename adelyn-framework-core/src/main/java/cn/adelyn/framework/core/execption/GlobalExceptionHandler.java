@@ -86,6 +86,6 @@ public class GlobalExceptionHandler {
         if (StrUtil.isNotBlank(RootContext.getXID())) {
             GlobalTransactionContext.reload(RootContext.getXID()).rollback();
         }*/
-        return ResponseEntity.status(HttpStatus.OK).body(ServerResponse.fail(ResponseEnum.EXCEPTION));
+        return ResponseEntity.status(HttpStatus.OK).body(ServerResponse.fail(ResponseEnum.FAIL));
     }
 }
