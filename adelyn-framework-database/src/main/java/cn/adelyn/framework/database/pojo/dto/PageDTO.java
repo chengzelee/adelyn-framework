@@ -18,11 +18,6 @@ import java.util.regex.Pattern;
  */
 public class PageDTO extends BasePageDTO {
 
-    /**
-     * 最大分页大小，如果分页大小大于50，则用50作为分页的大小。防止有人直接传入一个较大的数，导致服务器内存溢出宕机
-     */
-    protected static final int MAX_PAGE_SIZE = 50;
-
     @Override
     public long getPageNum() {
         return pageNum;
@@ -30,7 +25,7 @@ public class PageDTO extends BasePageDTO {
 
     @Override
     public long getPageSize() {
-        return pageSize > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : pageSize;
+        return pageSize;
     }
 
     public List<OrderItem> getOrderList() {
