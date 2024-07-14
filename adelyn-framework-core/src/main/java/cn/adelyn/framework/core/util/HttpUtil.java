@@ -102,7 +102,7 @@ public class HttpUtil {
     /**
      * have body, no urlParam, no httpHeaders
      */
-    public <T> T exchange(String url, HttpMethod httpMethod, Class<T> responseType, Object body) {
+    public <T, S> T exchange(String url, HttpMethod httpMethod, Class<T> responseType, S body) {
         HttpEntity<Object> requestEntity = new HttpEntity<>(body);
         return restTemplateExchange(url, httpMethod, requestEntity, responseType);
     }
@@ -110,7 +110,7 @@ public class HttpUtil {
     /**
      * have body, no urlParam, have httpHeaders
      */
-    public <T> T exchange(String url, HttpMethod httpMethod, HttpHeaders headers, Class<T> responseType, Object body) {
+    public <T, S> T exchange(String url, HttpMethod httpMethod, HttpHeaders headers, Class<T> responseType, S body) {
         HttpEntity<Object> requestEntity = new HttpEntity<>(body, headers);
         return restTemplateExchange(url, httpMethod, requestEntity, responseType);
     }
@@ -118,7 +118,7 @@ public class HttpUtil {
     /**
      * have body, have urlParam, no httpHeaders
      */
-    public <T> T exchange(String url, HttpMethod httpMethod, Class<T> responseType, Map<String, String> urlParams, Object body) {
+    public <T, S> T exchange(String url, HttpMethod httpMethod, Class<T> responseType, Map<String, String> urlParams, S body) {
         HttpEntity<Object> requestEntity = new HttpEntity<>(body);
         return restTemplateExchange(url, httpMethod, requestEntity, responseType, urlParams);
     }
@@ -126,7 +126,7 @@ public class HttpUtil {
     /**
      * have body, have urlParam, have httpHeaders
      */
-    public <T> T exchange(String url, HttpMethod httpMethod, HttpHeaders headers, Class<T> responseType, Map<String, String> urlParams, Object body) {
+    public <T, S> T exchange(String url, HttpMethod httpMethod, HttpHeaders headers, Class<T> responseType, Map<String, String> urlParams, S body) {
         HttpEntity<Object> requestEntity = new HttpEntity<>(body, headers);
         return restTemplateExchange(url, httpMethod, requestEntity, responseType, urlParams);
     }

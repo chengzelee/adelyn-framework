@@ -3,11 +3,13 @@ package cn.adelyn.framework.web.trace;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.MDC;
+import org.springframework.core.annotation.Order;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@Order(Integer.MIN_VALUE)
 public class TraceInterceptor implements HandlerInterceptor {
 
     @Override
