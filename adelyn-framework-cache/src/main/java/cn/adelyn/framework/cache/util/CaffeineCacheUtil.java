@@ -35,6 +35,10 @@ public class CaffeineCacheUtil {
         return value;
     }
 
+    public static boolean contains(Object key) {
+        return Objects.isNull(cache.getIfPresent(key));
+    }
+
     public static void remove(Object key) {
         cache.invalidate(key);
     }
